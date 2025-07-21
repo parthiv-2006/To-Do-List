@@ -7,15 +7,39 @@
 </head>
 <body>
     <div class="header">
-        <h1>To Do For You</h1>
-        <button>Create Project</button>
-        <button>Create Task</button>
+        <h1 id="title">To Do For You</h1>
+        <button id="createProject">Create Project</button>
+        <button id="createTask">Create Task</button>
+        <form id="task-form" class="hidden">
+            <label for="task-name">Task Name:</label>
+            <input type="text" id="task-name" name="task-name" placeholder="Studying for 10 minutes" required>
+            
+            <label for="task-description">Task Description (Optional):</label>
+            <input type="text" id="task-descriptio" name="task-description" placeholder="Work on Math worksheets">
+
+            <label for="task-date">Due Date:</label>
+            <input type="date" id="task-date" name="task-date" required>
+
+            <label for="task-priority">Priority:</label>
+            <select name="task-priority" id="task-priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            
+            
+            <button id="add-task-button" type="submit">Add Task</button>
+        
+        </form>
     </div>
     <div class="sidebar">
         <h1>Your Projects</h1>
+        <div class="list-of-projects">
+            <a href="#">Project 1</a>
+        </div>
     </div>
     <div class="main">
-        <h1>Work</h1>
+        <h1>Project 1</h1>
     </div>
 </body>
 </html>
