@@ -15,7 +15,7 @@ dom.taskForm.addEventListener('submit', (event) => {
     dom.taskForm.classList.add('hidden');
 })
 
-// Function names in JavaScript are typically camelCase.
+
 function createTaskCard() {
     const card = document.createElement('div');
     card.classList.add('task-card');
@@ -38,6 +38,23 @@ function createTaskCard() {
         const priority = document.createElement('p');
         priority.textContent = `Priority: ${dom.taskPriority.value}`;
         card.appendChild(priority);}
+    
+    const deleteCheck = document.createElement('input');
+    deleteCheck.type = 'checkbox';
+    deleteCheck.classList.add('delete-check');
+    card.appendChild(deleteCheck);
 
     dom.mainContent.appendChild(card);
 }
+
+dom.mainContent.addEventListener('change', (event) => {
+    // Check if the changed element is a delete checkbox
+    if (event.target.classList.contains('delete-check')) {
+        const checkbox = event.target;
+        // If the checkbox is checked, find its closest '.task-card' parent and remove it.
+        if (checkbox.checked) {
+            const card = checkbox.closest('.task-card');
+            dom.mainContent.removeChild(card);                          
+        }
+    }
+});
