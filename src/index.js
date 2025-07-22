@@ -1,42 +1,57 @@
 import './style.css';
 import DomElements from './dom_elements';
 
+class Dom {
+    constructor() {
+        this.dom = new DomElements();
 
-const dom = new DomElements();
+        this.dom.createTask.addEventListener('click', () => {
+            this.dom.taskForm.classList.remove('hidden');
+        })  
 
-dom.createTask.addEventListener('click', () => {
-    dom.taskForm.classList.remove('hidden');
-})
+    this.dom.taskForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Still need this to prevent the page from reloading
+        this.createTaskCard();
+        this.dom.taskForm.reset(); 
+        this.dom.taskForm.classList.add('hidden');
+        })
 
-dom.taskForm.addEventListener('submit', (event) => {
-    event.preventDefault(); // Still need this to prevent the page from reloading
-    createTaskCard();
-    dom.taskForm.reset(); 
-    dom.taskForm.classList.add('hidden');
-})
+    this.dom.mainContent.addEventListener('change', (event) => {
+    // Check if the changed element is a delete checkbox
+    if (event.target.classList.contains('delete-check')) {
+        const checkbox = event.target;
+        // If the checkbox is checked, find its closest '.task-card' parent and remove it.
+        if (checkbox.checked) {
+            const card = checkbox.closest('.task-card');
+            this.dom.mainContent.removeChild(card);                          
+            }
+        }
+        });
+    
+    }
+    
 
-
-function createTaskCard() {
+    createTaskCard() {
     const card = document.createElement('div');
     card.classList.add('task-card');
     
     const name = document.createElement('p');
-    name.textContent = `Task Name: ${dom.taskName.value}`;
+    name.textContent = `Task Name: ${this.dom.taskName.value}`;
     card.appendChild(name);
 
-    if (dom.taskDescription.value.trim() !== ''){
+    if (this.dom.taskDescription.value.trim() !== ''){
         const description = document.createElement('p');
-        description.textContent = `Description: ${dom.taskDescription.value}`;
+        description.textContent = `Description: ${this.dom.taskDescription.value}`;
         card.appendChild(description);}
 
     const date = document.createElement('p');
-    if (dom.taskDate.value.trim() !== ''){
-        date.textContent = `Due Date: ${dom.taskDate.value}`;
+    if (this.dom.taskDate.value.trim() !== ''){
+        date.textContent = `Due Date: ${this.dom.taskDate.value}`;
         card.appendChild(date);}
 
-    if (dom.taskPriority.value.trim() !== 'none') {
+    if (this.dom.taskPriority.value.trim() !== 'none') {
         const priority = document.createElement('p');
-        priority.textContent = `Priority: ${dom.taskPriority.value}`;
+        priority.textContent = `Priority: ${this.dom.taskPriority.value}`;
         card.appendChild(priority);}
     
     const deleteCheck = document.createElement('input');
@@ -44,17 +59,9 @@ function createTaskCard() {
     deleteCheck.classList.add('delete-check');
     card.appendChild(deleteCheck);
 
-    dom.mainContent.appendChild(card);
+    this.dom.mainContent.appendChild(card);
 }
 
-dom.mainContent.addEventListener('change', (event) => {
-    // Check if the changed element is a delete checkbox
-    if (event.target.classList.contains('delete-check')) {
-        const checkbox = event.target;
-        // If the checkbox is checked, find its closest '.task-card' parent and remove it.
-        if (checkbox.checked) {
-            const card = checkbox.closest('.task-card');
-            dom.mainContent.removeChild(card);                          
-        }
-    }
-});
+}
+
+new Dom();
