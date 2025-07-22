@@ -116,12 +116,7 @@ class App {
         this.render();
     }
 
-    render() {
-        // Clear the current display before re-rendering
-        this.dom.mainContent.innerHTML = '';
-        this.dom.projectLinks.innerHTML = '';
-
-        // Render project links in the sidebar
+    createProjectHyperlink() {
         this.projects.forEach(project => {
             const projectHyperLink = document.createElement('a');
             projectHyperLink.textContent = project.name;
@@ -134,19 +129,9 @@ class App {
             }
             this.dom.projectLinks.appendChild(projectHyperLink);
         });
+    }
 
-        // Render tasks for the current project
-        if (!this.currentProject) {
-            this.dom.mainProjectTitle.textContent = "You Have No Projects...";
-            this.dom.deleteProjectButton.style.display = 'none'
-            this.dom.displayProjectDescription.textContent = "Create a Project to Begin!"
-            return;
-        }
-        
-        this.dom.deleteProjectButton.style.display = 'block'
-        this.dom.mainProjectTitle.textContent = this.currentProject.name;
-        this.dom.displayProjectDescription.textContent = this.currentProject.description
-
+    displayTasksForProject() {
         this.currentProject.tasks.forEach(task => {
             const taskCard = document.createElement('div');
             taskCard.classList.add('task-card');
@@ -160,6 +145,30 @@ class App {
                 <input type="checkbox" class="delete-check">`;
             this.dom.mainContent.appendChild(taskCard);
         });
+    }
+
+    render() {
+        // Clear the current display before re-rendering
+        this.dom.mainContent.innerHTML = '';
+        this.dom.projectLinks.innerHTML = '';
+
+        // Render project links in the sidebar
+        this.createProjectHyperlink()
+
+        // Render tasks for the current project
+        if (!this.currentProject) {
+            this.dom.mainProjectTitle.textContent = "You Have No Projects...";
+            this.dom.deleteProjectButton.style.display = 'none'
+            this.dom.displayProjectDescription.textContent = "Create a Project to Begin!"
+            return;
+        }
+        
+        this.dom.deleteProjectButton.style.display = 'block'
+        this.dom.mainProjectTitle.textContent = this.currentProject.name;
+        this.dom.displayProjectDescription.textContent = this.currentProject.description
+
+        this.displayTasksForProject()
+        
     }
 }
 
