@@ -13,16 +13,20 @@ class App {
     init() {
         this.addEventListeners();
         // Start with a default project so the user can add tasks immediately.
-        this.createProjectSection("Default Project");
+        this.createProjectSection("Default Project", "Auto Generated Project");
     }
 
     addEventListeners() {
         this.dom.createTask.addEventListener('click', () => {
+            if (!this.currentProject) {
+                alert("Please create a project first!");
+                return;
+            } 
             this.dom.taskForm.classList.remove('hidden');
         });
 
         this.dom.taskForm.addEventListener('submit', (event) => {
-            event.preventDefault();
+            event.preventDefault();  
             this.createTask();
             this.dom.taskForm.reset();
             this.dom.taskForm.classList.add('hidden');
@@ -47,7 +51,7 @@ class App {
 
         this.dom.projectForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            this.createProjectSection(this.dom.projectName.value);
+            this.createProjectSection(this.dom.projectName.value, this.dom.projectDescription.value);
             this.dom.projectForm.reset();
             this.dom.projectForm.classList.add('hidden');
         });
@@ -83,10 +87,6 @@ class App {
     }
 
     createTask() {
-        if (!this.currentProject) {
-            alert("Please select a project first!");
-            return;
-        }
         const newTask = {
             id: `task-${Date.now()}`,
             name: this.dom.taskName.value,
@@ -104,11 +104,12 @@ class App {
         this.render();
     }
 
-    createProjectSection(name) {
+    createProjectSection(name, description) {
         const newProject = {
             id: `project-${Date.now()}`,
             name: name,
-            tasks: []
+            tasks: [],
+            description: description
         };
         this.projects.push(newProject);
         this.currentProject = newProject;
@@ -138,10 +139,14 @@ class App {
         if (!this.currentProject) {
             this.dom.mainProjectTitle.textContent = "You Have No Projects...";
             this.dom.deleteProjectButton.style.display = 'none'
+            this.dom.displayProjectDescription.textContent = "Create a Project to Begin!"
             return;
         }
-
+        
+        this.dom.deleteProjectButton.style.display = 'block'
         this.dom.mainProjectTitle.textContent = this.currentProject.name;
+        this.dom.displayProjectDescription.textContent = this.currentProject.description
+
         this.currentProject.tasks.forEach(task => {
             const taskCard = document.createElement('div');
             taskCard.classList.add('task-card');
