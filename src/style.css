@@ -22,4 +22,20 @@ body {
 
 .main {
     padding: var(--project-padding);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hidden {
+    display: none;
+}
+
+.task-card {
+    background-color: red;
+    padding: 10px;
+    width: 25%;
+    height: auto;
+    border-radius: 15px;
+    margin: 15px;
+    overflow-wrap: break-word;
 }
