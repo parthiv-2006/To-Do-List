@@ -63,6 +63,23 @@ class App {
                 }
             }
         });
+
+        this.dom.deleteProjectButton.addEventListener('click', () => {
+            this.deleteProject()
+            
+        })
+    }
+
+    deleteProject() {
+        if (!this.currentProject) return;
+        this.projects = this.projects.filter(project => project.id !== this.currentProject.id)
+        if (this.projects.length > 0) {
+            this.currentProject = this.projects[0]
+        }
+        else {
+            this.currentProject = null
+        }
+        this.render();
     }
 
     createTask() {
@@ -119,7 +136,8 @@ class App {
 
         // Render tasks for the current project
         if (!this.currentProject) {
-            this.dom.mainProjectTitle.textContent = "Select a project";
+            this.dom.mainProjectTitle.textContent = "You Have No Projects...";
+            this.dom.deleteProjectButton.style.display = 'none'
             return;
         }
 
