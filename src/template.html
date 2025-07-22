@@ -32,16 +32,31 @@
             <button id="add-task-button" type="submit">Add Task</button>
         
         </form>
+        <form id="project-form" class="hidden">
+            <label for="project-name">Project Name:</label>
+            <input type="text" id="project-name" name="project-name" required>
+
+            <label for="project-description">Description:</label>
+            <input type="text" name="project-description" id="project-description">
+
+            <!-- <label for="project-date">Date Created:</label>
+            <input type="date" name="project-date" id="project-date" required> -->
+
+            <button id="add-project-button" type="submit">Add Project</button>
+        </form>
     </div>
     <div class="sidebar">
         <h1>Your Projects</h1>
         <div class="list-of-projects">
-            <a href="#">Project 1</a>
+            <a href="#" target="_blank">Project 1</a>
         </div>
     </div>
 
-    <div class="main">
+    <div class="main-container">
         <h1>Project 1</h1>
+        <div class="main">
+
+        </div>
     </div>
 </body>
 </html>
