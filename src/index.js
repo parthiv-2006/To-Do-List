@@ -96,6 +96,9 @@ class App {
         })
 
         this.dom.editProjectDetails.addEventListener('click', () => {
+            this.dom.createProject.disabled = 'true'
+            this.dom.createTask.disabled = 'true'
+
             if (!this.currentProject) return;
             const detailForm = document.createElement('form')
             detailForm.classList.add('change-detail-form')
@@ -115,7 +118,6 @@ class App {
 
         
         this.dom.header.addEventListener('submit', (event) => {
-            
             if (event.target.classList.contains('change-detail-form'))
              {
                 event.preventDefault()
@@ -131,7 +133,8 @@ class App {
                 form.classList.add('hidden')
              
             }
-            
+            this.dom.createProject.disabled = false
+            this.dom.createTask.disabled = false
         })
 
          
