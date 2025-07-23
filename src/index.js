@@ -139,6 +139,8 @@ class App {
 
         this.dom.mainContent.addEventListener('click', (event) => {
             if (event.target.id === 'edit-task-button') {
+                const editButton = event.target;
+                editButton.disabled = true;
                 const taskCard = event.target.closest('.task-card');
                 if (!taskCard) return;
 
@@ -173,6 +175,7 @@ class App {
                 <button id="finish-edit" type="submit">Finish</button>`;
 
                 taskCard.appendChild(editForm);
+
 
             }
         });
