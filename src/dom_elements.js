@@ -1,5 +1,6 @@
 export default class DomElements {
     constructor () {
+        this.header = document.querySelector('.header')
         this.createProject = document.querySelector('#createProject');
         this.createTask = document.querySelector('#createTask');
         this.headerTitle = document.querySelector('#title')
@@ -13,6 +14,7 @@ export default class DomElements {
         this.mainProjectTitle = document.querySelector('.main-container h1');
         this.deleteProjectButton = document.querySelector('#delete-project')
         this.displayProjectDescription = document.querySelector('#display-project-description')
+        this.editProjectDetails = document.querySelector('#edit-project-details')
         // Project Form
         this.projectForm = document.querySelector('#project-form')
         this.projectName = document.querySelector('#project-name')
