@@ -296,8 +296,9 @@ class App {
             name: this.dom.taskName.value,
             description: this.dom.taskDescription.value,
             date: this.dom.taskDate.value,
-            priority: this.dom.taskPriority.value
+            priority: this.dom.taskPriority.value,
         };
+        this.currentProject = this.projects.find(project => project.id === this.dom.selectProject.value);
         this.currentProject.tasks.push(newTask);
         this.render();
         this.saveProjects()
