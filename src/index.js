@@ -94,6 +94,59 @@ class App {
             this.deleteProject()
             
         })
+
+        this.dom.editProjectDetails.addEventListener('click', () => {
+            if (!this.currentProject) return;
+            const detailForm = document.createElement('form')
+            detailForm.classList.add('change-detail-form')
+            detailForm.innerHTML = `
+                <label for="new-project-name">Project Name:</label>
+                <input type="text" id="new-project-name" name="new-project-name"
+                placeholder="${this.currentProject.name}">
+
+                <label for="new-project-description">Description:</label>
+                <input type="text" name="new-project-description" id="new-project-description"
+                placeholder = "${this.currentProject.description}">
+
+                <button id="change-project-button" type="submit">Change Details</button>
+        `
+            this.dom.header.appendChild(detailForm)
+        })
+
+        
+        this.dom.header.addEventListener('submit', (event) => {
+            
+            if (event.target.classList.contains('change-detail-form'))
+             {
+                event.preventDefault()
+                const form = event.target
+
+                const newNameInput = form.querySelector('#new-project-name')
+                const newDescriptionInput = form.querySelector('#new-project-description')
+                
+                const newName = newNameInput.value
+                const newDescription = newDescriptionInput.value
+
+                this.changeProjectDetails(newName, newDescription)
+                form.classList.add('hidden')
+             
+            }
+            
+        })
+
+         
+    }
+
+    changeProjectDetails(newName, newDescription) {
+        if (!this.currentProject) return;
+
+        else if (newName !== '')
+            {this.currentProject.name = newName}
+        else if (newDescription !== '')
+        {this.currentProject.description = newDescription}
+
+        this.render()
+        this.saveProjects()
     }
 
     deleteProject() {
@@ -185,10 +238,12 @@ class App {
         if (!this.currentProject) {
             this.dom.mainProjectTitle.textContent = "You Have No Projects...";
             this.dom.deleteProjectButton.style.display = 'none'
+            this.dom.editProjectDetails.style.display = 'none'
             this.dom.displayProjectDescription.textContent = "Create a Project to Begin!"
             return;
         }
         
+        this.dom.editProjectDetails.style.display = 'block'
         this.dom.deleteProjectButton.style.display = 'block'
         this.dom.mainProjectTitle.textContent = this.currentProject.name;
         this.dom.displayProjectDescription.textContent = this.currentProject.description
