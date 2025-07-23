@@ -16,6 +16,7 @@ export default class DomElements {
         this.displayProjectDescription = document.querySelector('#display-project-description')
         this.editProjectDetails = document.querySelector('#edit-project-details')
         this.cancelTaskButton = document.querySelector('#cancel-task-button')
+        this.selectProject = document.querySelector('#project-for-task')
         // Project Form
         this.projectForm = document.querySelector('#project-form')
         this.projectName = document.querySelector('#project-name')
