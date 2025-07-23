@@ -137,7 +137,78 @@ class App {
             this.dom.createTask.disabled = false
         })
 
+        this.dom.mainContent.addEventListener('click', (event) => {
+            if (event.target.id === 'edit-task-button') {
+                const taskCard = event.target.closest('.task-card');
+                if (!taskCard) return;
+
+                const taskId = taskCard.dataset.taskId;
+                const taskToEdit = this.currentProject.tasks.find(task => task.id === taskId);
+
+                if (!taskToEdit) return;
+
+                const editForm = document.createElement('form');
+                editForm.classList.add('edit-task-form');
+
+                editForm.innerHTML = `
+                <label for="new-task-name">Task Name:</label>
+                <input type="text" id="new-task-name" name="task-name" value="${taskToEdit.name}">
+            
+                <label for="new-task-description">Task Description (Optional):</label>
+                <input type="text" id="new-task-description" name="task-description" value="${taskToEdit.description || ''}">
+
+                <label for="new-task-date">Due Date:</label>
+                <input type="date" id="new-task-date" name="task-date" value="${taskToEdit.date}">
+
+                <label for="new-task-priority">Priority:</label>
+                
+                <select name="task-priority" id="new-task-priority">
+                    <option value="none" ${taskToEdit.priority === 'none' ? 'selected' : ''}></option>
+                    <option value="low" ${taskToEdit.priority === 'low' ? 'selected' : ''}>Low</option>
+                    <option value="medium" ${taskToEdit.priority === 'medium' ? 'selected' : ''}>Medium</option>
+                    <option value="high" ${taskToEdit.priority === 'high' ? 'selected' : ''}>High</option>
+                </select>
+            
+            
+                <button id="finish-edit" type="submit">Finish</button>`;
+
+                taskCard.appendChild(editForm);
+
+            }
+        });
+
+        this.dom.mainContent.addEventListener('submit', (event) => {
+            if (event.target.classList.contains('edit-task-form')) {
+                const task = event.target
+                const taskId = task.closest('.task-card').dataset.taskId
+
+                const taskNameInput = task.querySelector('#new-task-name')
+                const taskDescriptionInput = task.querySelector('#new-task-description')
+                const taskDateInput = task.querySelector('#new-task-date')
+                const taskPriorityInput = task.querySelector('#new-task-priority')
+
+                const name = taskNameInput.value
+                const description = taskDescriptionInput.value
+                const date = taskDateInput.value
+                const priority = taskPriorityInput.value
+                this.changeTaskDetails(name, description, date, priority, taskId)
+            }
+        })
          
+    }
+
+    changeTaskDetails(name, description, date, priority, taskId) {
+        if (!this.currentProject) return;
+        
+        const currentTask = this.currentProject.tasks.find(task => task.id === taskId)
+        
+        if (name !== '') {
+            currentTask.name = name}
+        currentTask.description = description
+        currentTask.date = date
+        currentTask.priority = priority
+        this.render()
+        this.saveProjects()    
     }
 
     changeProjectDetails(newName, newDescription) {
@@ -224,7 +295,9 @@ class App {
                 ${task.description ? `<p>Description: ${task.description}</p>` : ''}
                 ${task.date ? `<p>Due Date: ${task.date}</p>` : ''}
                 ${task.priority !== 'none' ? `<p>Priority: ${task.priority}</p>` : ''}
-                <input type="checkbox" class="delete-check">`;
+                <input type="checkbox" class="delete-check">
+                <button id="edit-task-button">Edit</button>
+            `;
             this.dom.mainContent.appendChild(taskCard);
         });
     }
