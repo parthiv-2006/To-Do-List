@@ -50,6 +50,22 @@ class App {
             this.dom.taskForm.classList.remove('hidden');
         });
 
+        this.dom.cancelTaskButton.addEventListener('click', () => {
+            this.dom.taskForm.reset()
+            this.dom.taskForm.classList.add('hidden');
+            this.dom.editProjectDetails.disabled = false
+            this.dom.deleteProjectButton.disabled = false
+            this.dom.createProject.disabled = false
+        })
+
+        this.dom.cancelProjectButton.addEventListener('click', () => {
+            this.dom.projectForm.reset()
+            this.dom.projectForm.classList.add('hidden');
+            this.dom.editProjectDetails.disabled = false
+            this.dom.deleteProjectButton.disabled = false
+            this.dom.createTask.disabled = false
+        })
+
         this.dom.taskForm.addEventListener('submit', (event) => {
             event.preventDefault(); 
             this.dom.deleteProjectButton.disabled = false 
