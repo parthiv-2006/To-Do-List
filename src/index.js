@@ -98,6 +98,7 @@ class App {
         this.dom.editProjectDetails.addEventListener('click', () => {
             this.dom.createProject.disabled = 'true'
             this.dom.createTask.disabled = 'true'
+            this.dom.editProjectDetails.disabled = 'true'
 
             if (!this.currentProject) return;
             const detailForm = document.createElement('form')
@@ -135,6 +136,7 @@ class App {
             }
             this.dom.createProject.disabled = false
             this.dom.createTask.disabled = false
+            this.dom.editProjectDetails.disabled = false
         })
 
         this.dom.mainContent.addEventListener('click', (event) => {
