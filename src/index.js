@@ -208,26 +208,40 @@ class App {
 
         this.dom.mainContent.addEventListener('submit', (event) => {
             if (event.target.classList.contains('edit-task-form')) {
-                const task = event.target
-                const taskId = task.closest('.task-card').dataset.taskId
+                event.preventDefault();
+                const form = event.target
+                const taskCard = form.closest('.task-card')
+                const taskId = taskCard.dataset.taskId
 
-                const taskNameInput = task.querySelector('#new-task-name')
-                const taskDescriptionInput = task.querySelector('#new-task-description')
-                const taskDateInput = task.querySelector('#new-task-date')
-                const taskPriorityInput = task.querySelector('#new-task-priority')
+                const taskNameInput = form.querySelector('#new-task-name')
+                const taskDescriptionInput = form.querySelector('#new-task-description')
+                const taskDateInput = form.querySelector('#new-task-date')
+                const taskPriorityInput = form.querySelector('#new-task-priority')
 
                 const name = taskNameInput.value
                 const description = taskDescriptionInput.value
                 const date = taskDateInput.value
                 const priority = taskPriorityInput.value
-                this.changeTaskDetails(name, description, date, priority, taskId)
+                const updatedTask = this.changeTaskDetails(name, description, date, priority, taskId)
+
+                if (updatedTask) {
+                    // Instead of re-rendering everything, just update the inner HTML of this one card
+                    taskCard.innerHTML = `
+                        <p>Task Name: ${updatedTask.name}</p>
+                        ${updatedTask.description ? `<p>Description: ${updatedTask.description}</p>` : ''}
+                        ${updatedTask.date ? `<p>Due Date: ${updatedTask.date}</p>` : ''}
+                        ${updatedTask.priority !== 'none' ? `<p>Priority: ${updatedTask.priority}</p>` : ''}
+                        <input type="checkbox" class="delete-check">
+                        <button id="edit-task-button">Edit</button>
+                    `;
+                }
             }
         })
          
     }
 
     changeTaskDetails(name, description, date, priority, taskId) {
-        if (!this.currentProject) return;
+        if (!this.currentProject) return null;
         
         const currentTask = this.currentProject.tasks.find(task => task.id === taskId)
         
@@ -236,8 +250,8 @@ class App {
         currentTask.description = description
         currentTask.date = date
         currentTask.priority = priority
-        this.render()
-        this.saveProjects()    
+        this.saveProjects()
+        return currentTask
     }
 
     changeProjectDetails(newName, newDescription) {
