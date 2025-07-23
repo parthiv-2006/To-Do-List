@@ -44,11 +44,15 @@ class App {
                 alert("Please create a project first!");
                 return;
             } 
+            this.dom.editProjectDetails.disabled = 'true'
+            this.dom.deleteProjectButton.disabled = 'true'
+            this.dom.createProject.disabled = 'true'
             this.dom.taskForm.classList.remove('hidden');
         });
 
         this.dom.taskForm.addEventListener('submit', (event) => {
-            event.preventDefault();  
+            event.preventDefault(); 
+            this.dom.deleteProjectButton.disabled = false 
             this.createTask();
             this.dom.taskForm.reset();
             this.dom.taskForm.classList.add('hidden');
@@ -68,11 +72,15 @@ class App {
         });
 
         this.dom.createProject.addEventListener('click', () => {
+            this.dom.editProjectDetails.disabled = 'true'
+            this.dom.deleteProjectButton.disabled = 'true'
+            this.dom.createTask.disabled = 'true'
             this.dom.projectForm.classList.remove('hidden');
         });
 
         this.dom.projectForm.addEventListener('submit', (event) => {
             event.preventDefault();
+            this.dom.deleteProjectButton.disabled = false 
             this.createProjectSection(this.dom.projectName.value, this.dom.projectDescription.value);
             this.dom.projectForm.reset();
             this.dom.projectForm.classList.add('hidden');
