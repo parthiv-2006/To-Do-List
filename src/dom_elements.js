@@ -15,11 +15,13 @@ export default class DomElements {
         this.deleteProjectButton = document.querySelector('#delete-project')
         this.displayProjectDescription = document.querySelector('#display-project-description')
         this.editProjectDetails = document.querySelector('#edit-project-details')
+        this.cancelTaskButton = document.querySelector('#cancel-task-button')
         // Project Form
         this.projectForm = document.querySelector('#project-form')
         this.projectName = document.querySelector('#project-name')
         this.projectDescription = document.querySelector('#project-description')
         this.addProjectButton = document.querySelector('#add-project-button')
+        this.cancelProjectButton = document.querySelector('#cancel-project-button')
         // Sidebar
         this.sidebar = document.querySelector('.sidebar')
         this.projectLinks = document.querySelector('.list-of-projects')
