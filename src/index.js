@@ -279,6 +279,17 @@ class App {
         this.saveProjects()
     }
 
+    populateProjectDropdown() {
+        this.dom.selectProject.innerHTML = '';
+        
+        this.projects.forEach(project => {
+            const option = document.createElement('option');
+            option.value = project.id;
+            option.textContent = project.name;
+            this.dom.selectProject.appendChild(option);
+        })
+    }
+
     createTask() {
         const newTask = {
             id: `task-${Date.now()}`,
@@ -352,6 +363,7 @@ class App {
 
         // Render project links in the sidebar
         this.createProjectHyperlink()
+        this.populateProjectDropdown()
 
         // Render tasks for the current project
         if (!this.currentProject) {
