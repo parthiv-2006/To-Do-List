@@ -11,10 +11,32 @@ class App {
     }
 
     init() {
+        this.loadProjects()
         this.addEventListeners();
         // Start with a default project so the user can add tasks immediately.
-        this.createProjectSection("Default Project", "Auto Generated Project");
+        if (this.projects.length === 0) {
+            this.createProjectSection("Default Project", "Auto Generated Project")
+        } else {
+            this.render()
+        }
+        
     }
+
+    saveProjects() {
+        localStorage.setItem('toDoApp.projects', JSON.stringify(this.projects))
+    }
+
+    loadProjects() {
+        const projectsJSON = localStorage.getItem('toDoApp.projects')
+
+        if (projectsJSON) {
+            this.projects = JSON.parse(projectsJSON)
+            if (this.projects.length > 0) {
+                this.currentProject = this.projects[0]
+            }
+        }
+    }
+
 
     addEventListeners() {
         this.dom.createTask.addEventListener('click', () => {
@@ -84,6 +106,7 @@ class App {
             this.currentProject = null
         }
         this.render();
+        this.saveProjects()
     }
 
     createTask() {
@@ -96,12 +119,14 @@ class App {
         };
         this.currentProject.tasks.push(newTask);
         this.render();
+        this.saveProjects()
     }
 
     deleteTask(taskId) {
         if (!this.currentProject) return;
         this.currentProject.tasks = this.currentProject.tasks.filter(task => task.id !== taskId);
         this.render();
+        this.saveProjects()
     }
 
     createProjectSection(name, description) {
@@ -114,6 +139,7 @@ class App {
         this.projects.push(newProject);
         this.currentProject = newProject;
         this.render();
+        this.saveProjects()
     }
 
     createProjectHyperlink() {
