@@ -327,7 +327,7 @@ class App {
     createProjectHyperlink() {
         this.projects.forEach(project => {
             const projectHyperLink = document.createElement('a');
-            projectHyperLink.textContent = project.name;
+            projectHyperLink.textContent = project.name + ` (${project.tasks.length})`;
             projectHyperLink.href = '#';
             projectHyperLink.classList.add('project-link');
             projectHyperLink.dataset.projectId = project.id;
