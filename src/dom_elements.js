@@ -1,5 +1,6 @@
 export default class DomElements {
     constructor () {
+        this.body = document.querySelector('body')
         this.header = document.querySelector('.header')
         this.createProject = document.querySelector('#createProject');
         this.createTask = document.querySelector('#createTask');
