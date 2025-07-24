@@ -81,19 +81,6 @@ class App {
             this.dom.body.classList.remove('overlay')
         });
 
-        // Use event delegation for deleting tasks. This is more efficient.
-        this.dom.mainContent.addEventListener('change', (event) => {
-            if (event.target.classList.contains('delete-check')) {
-                const checkbox = event.target;
-                if (checkbox.checked) {
-                    const card = checkbox.closest('.task-card');
-                    if (card && card.dataset.taskId) {
-                        this.deleteTask(card.dataset.taskId);
-                    }
-                }
-            }
-        });
-
         this.dom.createProject.addEventListener('click', () => {
             this.dom.editProjectDetails.disabled = 'true'
             this.dom.deleteProjectButton.disabled = 'true'
@@ -210,8 +197,10 @@ class App {
                     <option value="high" ${taskToEdit.priority === 'high' ? 'selected' : ''}>High</option>
                 </select>
                 
-            
-                <button id="finish-edit" type="submit">Finish</button>`;
+                
+                <button class="edit-task-button" id="finish-edit" type="submit">Finish</button>
+                <button class="edit-task-button" id="delete-task-button" >Delete</button>
+                `;
 
                 taskCard.innerHTML = ''
                 taskCard.style['padding-left'] = '15px'
@@ -225,44 +214,49 @@ class App {
         this.dom.mainContent.addEventListener('submit', (event) => {
             if (event.target.classList.contains('edit-task-form')) {
                 event.preventDefault();
-                const form = event.target
-                const taskCard = form.closest('.task-card')
-                taskCard.style['padding-left'] = '2.5rem'
-                const taskId = taskCard.dataset.taskId
+                const form = event.target;
+                const taskCard = form.closest('.task-card');
+                const taskId = taskCard.dataset.taskId;
 
-                const taskNameInput = form.querySelector('#new-task-name')
-                const taskDescriptionInput = form.querySelector('#new-task-description')
-                const taskDateInput = form.querySelector('#new-task-date')
-                const taskPriorityInput = form.querySelector('#new-task-priority')
+                // Check which button triggered the form submission.
+                if (event.submitter && event.submitter.id === 'delete-task-button') {
+                    this.deleteTask(taskId);
+                } else {
+                    // This is the 'Finish' button logic.
+                    taskCard.style['padding-left'] = '2.5rem';
 
-                const name = taskNameInput.value
-                const description = taskDescriptionInput.value
-                const date = taskDateInput.value
-                const priority = taskPriorityInput.value
-                const updatedTask = this.changeTaskDetails(name, description, date, priority, taskId)
+                    const taskNameInput = form.querySelector('#new-task-name');
+                    const taskDescriptionInput = form.querySelector('#new-task-description');
+                    const taskDateInput = form.querySelector('#new-task-date');
+                    const taskPriorityInput = form.querySelector('#new-task-priority');
 
-                if (updatedTask) {
-                    // Instead of re-rendering everything, just update the inner HTML of this one card
-                    taskCard.innerHTML = `
-                        <div class="card-content">
-                            <p>Task Name: ${updatedTask.name}</p>
-                            ${updatedTask.description ? `<p>Description: ${updatedTask.description}</p>` : ''}
-                            ${updatedTask.date ? `<p>Due Date: ${updatedTask.date}</p>` : ''}
-                            ${updatedTask.priority !== 'none' ? `<p>Priority: ${updatedTask.priority}</p>` : ''}
-                        </div>
-                        <label class="custom-checkbox">  <!-- Add a label wrapper -->
-                            <input type="checkbox" class="delete-check">
-                            <span class="checkmark"></span> <!-- This will be our fake box -->
-                        </label>
-                        <div class="card-buttons">
-                            <button id="edit-task-button">Edit</button>
-                        </div>
-                        
-                    `;
+                    const name = taskNameInput.value;
+                    const description = taskDescriptionInput.value;
+                    const date = taskDateInput.value;
+                    const priority = taskPriorityInput.value;
+                    const updatedTask = this.changeTaskDetails(name, description, date, priority, taskId);
+
+                    if (updatedTask) {
+                        // Instead of re-rendering everything, just update the inner HTML of this one card
+                        taskCard.innerHTML = `
+                            <div class="card-content">
+                                <p>Task Name: ${updatedTask.name}</p>
+                                ${updatedTask.description ? `<p>Description: ${updatedTask.description}</p>` : ''}
+                                ${updatedTask.date ? `<p>Due Date: ${updatedTask.date}</p>` : ''}
+                                ${updatedTask.priority !== 'none' ? `<p>Priority: ${updatedTask.priority}</p>` : ''}
+                            </div>
+                            <label class="custom-checkbox">  <!-- Add a label wrapper -->
+                                <input type="checkbox" class="delete-check">
+                                <span class="checkmark"></span> <!-- This will be our fake box -->
+                            </label>
+                            <div class="card-buttons">
+                                <button id="edit-task-button">Edit</button>
+                            </div>
+                        `;
+                    }
                 }
             }
-        })
-         
+        });
     }
 
     changeTaskDetails(name, description, date, priority, taskId) {
