@@ -1,4 +1,7 @@
-import './style.css';
+import './css_modules/header.css';
+import './css_modules/common.css';
+import './css_modules/content.css';
+import './css_modules/sidebar.css';
 import DomElements from './dom_elements';
 
 // It's good practice to separate data logic from DOM manipulation.
@@ -257,10 +260,10 @@ class App {
     changeProjectDetails(newName, newDescription) {
         if (!this.currentProject) return;
 
-        else if (newName !== '')
+        if (newName !== '')
             {this.currentProject.name = newName}
-        else if (newDescription !== '')
-        {this.currentProject.description = newDescription}
+        if (newDescription !== '')
+            {this.currentProject.description = newDescription}
 
         this.render()
         this.saveProjects()
