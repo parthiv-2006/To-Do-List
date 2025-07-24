@@ -50,12 +50,14 @@ class App {
             this.dom.editProjectDetails.disabled = 'true'
             this.dom.deleteProjectButton.disabled = 'true'
             this.dom.createProject.disabled = 'true'
+            this.dom.body.classList.add('overlay')
             this.dom.taskForm.classList.remove('hidden');
         });
 
         this.dom.cancelTaskButton.addEventListener('click', () => {
             this.dom.taskForm.reset()
             this.dom.taskForm.classList.add('hidden');
+            this.dom.body.classList.remove('overlay')
             this.dom.editProjectDetails.disabled = false
             this.dom.deleteProjectButton.disabled = false
             this.dom.createProject.disabled = false
@@ -64,6 +66,7 @@ class App {
         this.dom.cancelProjectButton.addEventListener('click', () => {
             this.dom.projectForm.reset()
             this.dom.projectForm.classList.add('hidden');
+            this.dom.body.classList.remove('overlay')
             this.dom.editProjectDetails.disabled = false
             this.dom.deleteProjectButton.disabled = false
             this.dom.createTask.disabled = false
@@ -75,6 +78,7 @@ class App {
             this.createTask();
             this.dom.taskForm.reset();
             this.dom.taskForm.classList.add('hidden');
+            this.dom.body.classList.remove('overlay')
         });
 
         // Use event delegation for deleting tasks. This is more efficient.
@@ -95,6 +99,7 @@ class App {
             this.dom.deleteProjectButton.disabled = 'true'
             this.dom.createTask.disabled = 'true'
             this.dom.projectForm.classList.remove('hidden');
+            this.dom.body.classList.add('overlay')
         });
 
         this.dom.projectForm.addEventListener('submit', (event) => {
@@ -103,6 +108,7 @@ class App {
             this.createProjectSection(this.dom.projectName.value, this.dom.projectDescription.value);
             this.dom.projectForm.reset();
             this.dom.projectForm.classList.add('hidden');
+            this.dom.body.classList.remove('overlay')
         });
 
         // Use event delegation for switching projects.
@@ -126,6 +132,8 @@ class App {
             this.dom.createProject.disabled = 'true'
             this.dom.createTask.disabled = 'true'
             this.dom.editProjectDetails.disabled = 'true'
+            this.dom.deleteProjectButton.disabled = 'true'
+            this.dom.body.classList.add('overlay')
 
             if (!this.currentProject) return;
             const detailForm = document.createElement('form')
@@ -139,7 +147,7 @@ class App {
                 <input type="text" name="new-project-description" id="new-project-description"
                 placeholder = "${this.currentProject.description}">
 
-                <button id="change-project-button" type="submit">Change Details</button>
+                <button class="form-button" id="change-project-button" type="submit">Change Details</button>
         `
             this.dom.header.appendChild(detailForm)
         })
@@ -148,6 +156,7 @@ class App {
         this.dom.header.addEventListener('submit', (event) => {
             if (event.target.classList.contains('change-detail-form'))
              {
+                this.dom.body.classList.remove('overlay')
                 event.preventDefault()
                 const form = event.target
 
