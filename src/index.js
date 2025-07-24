@@ -209,9 +209,12 @@ class App {
                     <option value="medium" ${taskToEdit.priority === 'medium' ? 'selected' : ''}>Medium</option>
                     <option value="high" ${taskToEdit.priority === 'high' ? 'selected' : ''}>High</option>
                 </select>
-            
+                
             
                 <button id="finish-edit" type="submit">Finish</button>`;
+
+                taskCard.innerHTML = ''
+                taskCard.style['padding-left'] = '15px'
 
                 taskCard.appendChild(editForm);
 
@@ -224,6 +227,7 @@ class App {
                 event.preventDefault();
                 const form = event.target
                 const taskCard = form.closest('.task-card')
+                taskCard.style['padding-left'] = '2.5rem'
                 const taskId = taskCard.dataset.taskId
 
                 const taskNameInput = form.querySelector('#new-task-name')
@@ -367,19 +371,21 @@ class App {
             taskCard.dataset.taskId = task.id;
             // Use .innerHTML to render the HTML string correctly
             taskCard.innerHTML = `
-                <label class="custom-checkbox">  <!-- Add a label wrapper -->
-                    <input type="checkbox" class="delete-check">
-                    <span class="checkmark"></span> <!-- This will be our fake box -->
-                </label>
+                
                 <div class="card-content">
                     <p>Task Name: ${task.name}</p>
                     ${task.description ? `<p>Description: ${task.description}</p>` : ''}
                     ${task.date ? `<p>Due Date: ${task.date}</p>` : ''}
                     ${task.priority !== 'none' ? `<p>Priority: ${task.priority}</p>` : ''}
                 </div>
+                <label class="custom-checkbox">  <!-- Add a label wrapper -->
+                    <input type="checkbox" class="delete-check">
+                    <span class="checkmark"></span> <!-- This will be our fake box -->
+                </label>
                 <div class= 'card-buttons'>
                     <button id="edit-task-button">Edit</button>
                 </div>
+
                 
             `;
             this.dom.mainContent.appendChild(taskCard);
