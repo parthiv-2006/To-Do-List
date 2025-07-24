@@ -151,3 +151,56 @@
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
 }
+
+/* --- Styling for the Edit Task Form --- */
+
+.edit-task-form {
+    /* Use flexbox to stack the form elements vertically */
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adds consistent space between each label/input group */
+}
+
+.edit-task-form label {
+    /* Make labels bold and slightly smaller to create hierarchy */
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: -5px; /* Pull the input slightly closer to its label */
+}
+
+.edit-task-form input,
+.edit-task-form select {
+    /* Consistent styling for all input fields */
+    width: 100%; /* Make inputs fill the width of the card */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-sizing: border-box; /* Ensures padding doesn't affect the width */
+}
+
+.edit-task-form input:focus,
+.edit-task-form select:focus {
+    /* Highlight the active field for better UX */
+    outline: none;
+    border-color: #007bff; /* A nice blue to indicate focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.edit-task-form button[type="submit"] {
+    /* Style the 'Finish' button as a primary action */
+    align-self: flex-end; /* Push the button to the right */
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #28a745; /* Green for a 'confirm' action */
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px; /* Add a little space above the button */
+}
+
+.edit-task-form button[type="submit"]:hover {
+    background-color: #218838; /* Darken the green on hover */
+}
