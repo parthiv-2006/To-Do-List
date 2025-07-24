@@ -8,9 +8,11 @@
 <body>
     <div class="header">
         <h1 id="title">To Do For You</h1>
-        <button id="createProject">Create Project</button>
-        <button id="createTask">Create Task</button>
-        <form id="task-form" class="hidden">
+        <div class="header-buttons">
+            <button id="createProject">Create Project</button>
+            <button id="createTask">Create Task</button>
+        </div>
+        <form id="task-form" class="task-form hidden">
             <label for="task-name">Task Name:</label>
             <input type="text" id="task-name" name="task-name" placeholder="Studying for 10 minutes" required>
             
@@ -38,7 +40,7 @@
             <button id="cancel-task-button" type="button">Cancel</button>
 
         </form>
-        <form id="project-form" class="hidden">
+        <form id="project-form" class="project-form hidden">
             <label for="project-name">Project Name:</label>
             <input type="text" id="project-name" name="project-name" required>
 
