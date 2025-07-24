@@ -173,6 +173,7 @@ class App {
             this.dom.createProject.disabled = false
             this.dom.createTask.disabled = false
             this.dom.editProjectDetails.disabled = false
+            this.dom.deleteProjectButton.disabled = false
         })
 
         this.dom.mainContent.addEventListener('click', (event) => {
@@ -239,12 +240,20 @@ class App {
                 if (updatedTask) {
                     // Instead of re-rendering everything, just update the inner HTML of this one card
                     taskCard.innerHTML = `
-                        <p>Task Name: ${updatedTask.name}</p>
-                        ${updatedTask.description ? `<p>Description: ${updatedTask.description}</p>` : ''}
-                        ${updatedTask.date ? `<p>Due Date: ${updatedTask.date}</p>` : ''}
-                        ${updatedTask.priority !== 'none' ? `<p>Priority: ${updatedTask.priority}</p>` : ''}
-                        <input type="checkbox" class="delete-check">
-                        <button id="edit-task-button">Edit</button>
+                        <div class="card-content">
+                            <p>Task Name: ${updatedTask.name}</p>
+                            ${updatedTask.description ? `<p>Description: ${updatedTask.description}</p>` : ''}
+                            ${updatedTask.date ? `<p>Due Date: ${updatedTask.date}</p>` : ''}
+                            ${updatedTask.priority !== 'none' ? `<p>Priority: ${updatedTask.priority}</p>` : ''}
+                        </div>
+                        <label class="custom-checkbox">  <!-- Add a label wrapper -->
+                            <input type="checkbox" class="delete-check">
+                            <span class="checkmark"></span> <!-- This will be our fake box -->
+                        </label>
+                        <div class="card-buttons">
+                            <button id="edit-task-button">Edit</button>
+                        </div>
+                        
                     `;
                 }
             }
@@ -358,12 +367,20 @@ class App {
             taskCard.dataset.taskId = task.id;
             // Use .innerHTML to render the HTML string correctly
             taskCard.innerHTML = `
-                <p>Task Name: ${task.name}</p>
-                ${task.description ? `<p>Description: ${task.description}</p>` : ''}
-                ${task.date ? `<p>Due Date: ${task.date}</p>` : ''}
-                ${task.priority !== 'none' ? `<p>Priority: ${task.priority}</p>` : ''}
-                <input type="checkbox" class="delete-check">
-                <button id="edit-task-button">Edit</button>
+                <label class="custom-checkbox">  <!-- Add a label wrapper -->
+                    <input type="checkbox" class="delete-check">
+                    <span class="checkmark"></span> <!-- This will be our fake box -->
+                </label>
+                <div class="card-content">
+                    <p>Task Name: ${task.name}</p>
+                    ${task.description ? `<p>Description: ${task.description}</p>` : ''}
+                    ${task.date ? `<p>Due Date: ${task.date}</p>` : ''}
+                    ${task.priority !== 'none' ? `<p>Priority: ${task.priority}</p>` : ''}
+                </div>
+                <div class= 'card-buttons'>
+                    <button id="edit-task-button">Edit</button>
+                </div>
+                
             `;
             this.dom.mainContent.appendChild(taskCard);
         });
