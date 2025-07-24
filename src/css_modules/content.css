@@ -143,10 +143,10 @@
 
 /* Style the checkmark symbol itself (a rotated L-shape) */
 .checkmark::after {
-    left: 6px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
+    left: 5px;
+    top: 1px;
+    width: 3px;
+    height: 8px;
     border: solid white;
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
