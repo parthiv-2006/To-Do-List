@@ -1,7 +1,113 @@
 .header {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
 }
 
+#createProject, #createTask {
+    border: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px;
+    
+}
+
+#createProject {
+    background-color: lightblue;
+}
+
+#createTask {
+    background-color: lightgray;
+}
+
+#createProject:hover, #createTask:hover{
+    background-color: darkcyan;
+    color: white;
+    
+}
+
+.overlay {
+    /* Position it fixed to cover the entire viewport */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Semi-transparent black background */
+    background-color: rgba(0, 0, 0, 0.6);
+
+    /* High z-index to sit on top of page content */
+    z-index: 999; 
+}
+
+.task-form, .project-form, .change-detail-form {
+    z-index: 1000;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%); 
+    background-color: antiquewhite;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px;
+
+}
+
+.form-buttons {
+    grid-column: 1 / -1; 
+    justify-self: end; 
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input, select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: whitesmoke;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+}
+
+
+.form-button {
+    font-weight: bold;
+    padding: 0.5rem 0.5rem;
+    border-radius: 8px;
+    border: solid 0.5px black;
+}
+
+#add-task-button, #add-project-button, #change-project-button{
+    background-color: lightgreen;
+}
+
+#cancel-task-button, #cancel-project-button {
+    background-color: red;
+}
+
+#add-task-button:hover, #add-project-button:hover, #change-project-button:hover {
+    color: white;
+    background-color: darkgreen;
+}
+
+#cancel-task-button:hover, #cancel-project-button:hover {
+    color: white;
+    background-color: darkred;
+}
