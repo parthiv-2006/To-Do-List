@@ -5,6 +5,7 @@ body {
     margin: 0;
     padding: 0;
     --project-padding: 10px;
+    position: relative;
 }
 
 
@@ -16,7 +17,6 @@ body {
 }
 .header {
     grid-column-start: 2;
-    background-color: red;
     grid-area: header;
     padding: var(--project-padding);
 }
