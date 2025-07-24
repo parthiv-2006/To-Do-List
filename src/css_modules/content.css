@@ -1,1 +1,153 @@
 /* Content */
+.main-container {
+    padding: 2rem;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-header h1 {
+    font-size: 3rem;
+    margin-bottom: 0px;
+}
+
+.main-header p {
+    font-size: 1rem;
+    color: gray;
+}
+
+.main-header-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#delete-project, #edit-project-details {
+    font-weight: bold;
+    padding: 0.5rem 0.5rem;
+    border-radius: 8px;
+    border: solid 0.5px black;
+}
+
+#delete-project {
+    background-color: red;
+}
+
+#edit-project-details {
+    background-color: lightgreen;
+}
+
+#delete-project:hover{
+    color: white;
+    background-color: darkred;
+}
+
+#edit-project-details:hover{
+    color: white;
+    background-color: darkgreen;
+}
+
+.main {
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.task-card {
+    max-width: 10rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 7rem;
+}
+
+.task-card {
+    position:relative;
+    background-color: lightgrey;
+    padding: 10px;
+    height: auto;
+    border-radius: 15px;
+    overflow-wrap: break-word;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding-left: 2.5rem;
+}
+
+.card-buttons {
+    margin-top: 0px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.delete-check {
+    opacity: 0;
+}
+
+#edit-task-button {
+    padding: 0.2rem 0.8rem;
+    border-radius: 8px;
+    border: solid 0.2px black;
+    background-color: lightseagreen
+}
+
+#edit-task-button:hover {
+    color: white;
+    background-color: darkgray;
+}
+
+.checkmark {
+    position: absolute;
+    left: 3%;
+    top: 45%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* Change border color on hover */
+.custom-checkbox:hover .checkmark {
+    border-color: #777;
+}
+
+/* When the real checkbox is checked, change the background of our fake one */
+.delete-check:checked ~ .checkmark {
+    background-color: #2196F3; /* A nice blue for the checked state */
+    border-color: #2196F3;
+}
+
+/* Create the checkmark symbol (hidden by default) */
+.checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when the real checkbox is checked */
+.delete-check:checked ~ .checkmark::after {
+    display: block;
+}
+
+/* Style the checkmark symbol itself (a rotated L-shape) */
+.checkmark::after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
