@@ -122,7 +122,14 @@ class App {
                 const cardContent = taskCard.querySelector('.card-content');
                 const editButton = taskCard.querySelector('#edit-task-button')
                 
+                const taskId = taskCard.dataset.taskId;
+                const task = this.currentProject.tasks.find(task => task.id === taskId)
 
+                if (task) {
+                    task.isComplete = checkbox.checked;
+                    this.saveProjects()
+                }
+                
                 if (checkbox.checked) {
                     cardContent.style.textDecoration = 'line-through';
                     cardContent.style.opacity = '0.4';
@@ -342,6 +349,7 @@ class App {
             description: this.dom.taskDescription.value,
             date: this.dom.taskDate.value,
             priority: this.dom.taskPriority.value,
+            isComplete: false
         };
         this.currentProject = this.projects.find(project => project.id === this.dom.selectProject.value);
         this.currentProject.tasks.push(newTask);
@@ -399,7 +407,7 @@ class App {
                     ${task.priority !== 'none' ? `<p>Priority: ${task.priority}</p>` : ''}
                 </div>
                 <label class="custom-checkbox">  <!-- Add a label wrapper -->
-                    <input type="checkbox" class="delete-check">
+                    <input type="checkbox" class="delete-check" ${task.isComplete ? 'checked' : ''}>
                     <span class="checkmark"></span> <!-- This will be our fake box -->
                 </label>
                 <div class= 'card-buttons'>
@@ -410,6 +418,13 @@ class App {
                 
             `;
             this.dom.mainContent.appendChild(taskCard);
+            if (task.isComplete) {
+                const cardContent = taskCard.querySelector('.card-content')
+                const editButton = taskCard.querySelector('#edit-task-button')
+                cardContent.style.textDecoration = 'line-through';
+                cardContent.style.opacity = '0.4';
+                editButton.style.display = 'none'
+            }
         });
     }
 
