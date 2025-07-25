@@ -121,15 +121,17 @@ class App {
                 const taskCard = checkbox.closest('.task-card');
                 const cardContent = taskCard.querySelector('.card-content');
                 const editButton = taskCard.querySelector('#edit-task-button')
+                
 
                 if (checkbox.checked) {
                     cardContent.style.textDecoration = 'line-through';
-                    taskCard.style.opacity = '0.4';
+                    cardContent.style.opacity = '0.4';
                     editButton.style.display = 'none'
+                    
 
                 } else {
                     cardContent.style.textDecoration = 'none';
-                    taskCard.style.opacity = '1'
+                    cardContent.style.opacity = '1'
                     editButton.disabled = false
                     editButton.style.display = 'block'
                 }
@@ -221,7 +223,6 @@ class App {
                 
                 
                 <button class="edit-task-button" id="finish-edit" type="submit">Finish</button>
-                <button class="edit-task-button" id="delete-task-button" >Delete</button>
                 `;
 
                 taskCard.innerHTML = ''
@@ -232,6 +233,13 @@ class App {
 
             }
         });
+        this.dom.mainContent.addEventListener('click', (event) => {
+            if (event.target.id === 'delete-task-button') {
+                const taskCard = event.target.closest('.task-card');
+                const taskId = taskCard.dataset.taskId;
+                this.deleteTask(taskId);
+            }
+        })
 
         this.dom.mainContent.addEventListener('submit', (event) => {
             if (event.target.classList.contains('edit-task-form')) {
@@ -240,10 +248,6 @@ class App {
                 const taskCard = form.closest('.task-card');
                 const taskId = taskCard.dataset.taskId;
 
-                // Check which button triggered the form submission.
-                if (event.submitter && event.submitter.id === 'delete-task-button') {
-                    this.deleteTask(taskId);
-                } else {
                     // This is the 'Finish' button logic.
                     taskCard.style['padding-left'] = '2.5rem';
 
@@ -273,9 +277,9 @@ class App {
                             </label>
                             <div class="card-buttons">
                                 <button id="edit-task-button">Edit</button>
+                                <button class="edit-task-button" id="delete-task-button" type="submit">Delete</button>
                             </div>
                         `;
-                    }
                 }
             }
         });
@@ -400,6 +404,7 @@ class App {
                 </label>
                 <div class= 'card-buttons'>
                     <button id="edit-task-button">Edit</button>
+                    <button class="edit-task-button" id="delete-task-button" type="submit">Delete</button>
                 </div>
 
                 
