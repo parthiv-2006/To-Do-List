@@ -115,6 +115,28 @@ class App {
             
         })
 
+        this.dom.mainContent.addEventListener('change', (event) => {
+            if (event.target.classList.contains('delete-check')) {
+                const checkbox = event.target;
+                const taskCard = checkbox.closest('.task-card');
+                const cardContent = taskCard.querySelector('.card-content');
+                const editButton = taskCard.querySelector('#edit-task-button')
+
+                if (checkbox.checked) {
+                    cardContent.style.textDecoration = 'line-through';
+                    taskCard.style.opacity = '0.4';
+                    editButton.style.display = 'none'
+
+                } else {
+                    cardContent.style.textDecoration = 'none';
+                    taskCard.style.opacity = '1'
+                    editButton.disabled = false
+                    editButton.style.display = 'block'
+                }
+                
+            }
+        })
+
         this.dom.editProjectDetails.addEventListener('click', () => {
             this.dom.createProject.disabled = 'true'
             this.dom.createTask.disabled = 'true'
